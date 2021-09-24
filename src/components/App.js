@@ -1,36 +1,54 @@
+import React from "react";
 import Header from "./Header";
 import Main from "./Main";
+import PopupWithForm from "./PopupWithForm";
 import Footer from "./Footer";
 
 function App() {
+
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false)
+  const [isEditProfilePopupOpen, setIspProfilePopupOpen] = React.useState(false)
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false)
+
+
   function handleEditAvatarClick() {
-    
-    const avatarPopup = document.querySelector(".popup_type_edit-image");
-    avatarPopup.classList.add("popup_opened");
+    setIsEditAvatarPopupOpen(true)
   }
 
   function handleEditProfileClick() {
-    const profilePopup = document.querySelector(".popup_type_edit-profile");
-    profilePopup.classList.add("popup_opened");
+    setIspProfilePopupOpen(true)
   }
 
   function handleAddPlaceClick() {
-    const addPlacePopup = document.querySelector(".popup_type_new-item");
-    addPlacePopup.classList.add("popup_opened");
+    setIsAddPlacePopupOpen(true)
   }
 
-  function handleCardClick(){
+  function handleCardClick() {
     const cardPopup = document.querySelector(".popup_type_picture")
     cardPopup.classList.add("popup_opened")
   }
 
-  
+
   return (
     <div className="App">
       <div className="root">
         <div className="page-content">
           <Header />
-          <Main onEditProfileClick={handleEditProfileClick} onAddPlaceClick={handleAddPlaceClick} onEditAvatarClick={handleEditAvatarClick} onCardClick={handleCardClick}/>
+          <Main
+            onEditProfileClick={handleEditProfileClick}
+            onAddPlaceClick={handleAddPlaceClick}
+            onEditAvatarClick={handleEditAvatarClick}
+            onCardClick={handleCardClick}>
+
+            <PopupWithForm name="edit-image" title="Change Profile Picture" 
+            firstPlaceholder="Image Link" isOpen={isEditAvatarPopupOpen}>
+              <input type="url" name="link" id="popup_avatar-link" placeholder="Image Link" className="popup__field"
+                required />
+              <span className="popup__error" id="popup_avatar-link-error"></span>
+            </PopupWithForm>
+
+
+          </Main>
           <Footer />
 
         </div>

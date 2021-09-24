@@ -1,9 +1,9 @@
 import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
+
+
 function Main(props) {
-
-
-  return (
+   return (
     <main className="content">
       <section className="profile">
         <div className="profile__avatar">
@@ -27,7 +27,7 @@ function Main(props) {
 
 
       </section>
-      <PopupWithForm name="edit-profile" title="Edit Profile">
+      {/* <PopupWithForm name="edit-profile" title="Edit Profile" >
         <input type="text" name="name" id="popup_name" placeholder="Name (eg. Jacques Cousteau)"
           className="popup__field" minLength="2" maxLength="40" required />
         <span className="popup__error" id="popup_name-error"></span>
@@ -37,7 +37,7 @@ function Main(props) {
         <span className="popup__error" id="popup_title-error"></span>
       </PopupWithForm>
 
-      <PopupWithForm name="new-item" title="New Place">
+      <PopupWithForm name="new-item" title="New Place" >
         <input type="text" name="name" id="popup_image-title" placeholder="Title" className="popup__field" required
           minLength="2" maxLength="30" />
         <span className="popup__error" id="popup_image-title-error"></span>
@@ -47,14 +47,14 @@ function Main(props) {
         <span className="popup__error" id="popup_image-link-error"></span>
       </PopupWithForm>
 
-      <PopupWithForm name="edit-image" title="Change Profile Picture" firstPlaceholder="Image Link">
+      <PopupWithForm name="edit-image" title="Change Profile Picture" firstPlaceholder="Image Link" isOpen={isEditAvatarPopupOpen}>
         <input type="url" name="link" id="popup_avatar-link" placeholder="Image Link" className="popup__field"
           required />
         <span className="popup__error" id="popup_avatar-link-error"></span>
       </PopupWithForm>
 
 
-      <PopupWithForm name="confirm-delete" title="Are you sure?"/>
+      <PopupWithForm name="confirm-delete" title="Are you sure?"/> */}
 
       <ImagePopup />
 
