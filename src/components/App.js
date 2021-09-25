@@ -2,6 +2,7 @@ import React from "react";
 import Header from "./Header";
 import Main from "./Main";
 import PopupWithForm from "./PopupWithForm";
+import ImagePopup from "./ImagePopup";
 import Footer from "./Footer";
 
 function App() {
@@ -9,7 +10,7 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false)
   const [isEditProfilePopupOpen, setIspProfilePopupOpen] = React.useState(false)
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false)
-
+  const [popupClose, setPopupClose] = React.useState(false);
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true)
@@ -28,6 +29,12 @@ function App() {
     cardPopup.classList.add("popup_opened")
   }
 
+  function closeAllPopups(){
+    console.log("click")
+    setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen)
+    // setIspProfilePopupOpen(false)
+    // setIsAddPlacePopupOpen(false)
+  }
 
   return (
     <div className="App">
@@ -38,17 +45,41 @@ function App() {
             onEditProfileClick={handleEditProfileClick}
             onAddPlaceClick={handleAddPlaceClick}
             onEditAvatarClick={handleEditAvatarClick}
-            onCardClick={handleCardClick}>
+            onCardClick={handleCardClick}
+            onCloseClick={closeAllPopups} />
 
-            <PopupWithForm name="edit-image" title="Change Profile Picture" 
-            firstPlaceholder="Image Link" isOpen={isEditAvatarPopupOpen}>
-              <input type="url" name="link" id="popup_avatar-link" placeholder="Image Link" className="popup__field"
-                required />
-              <span className="popup__error" id="popup_avatar-link-error"></span>
-            </PopupWithForm>
+          <PopupWithForm name="edit-image" title="Change Profile Picture"
+            isOpen={isEditAvatarPopupOpen} onClose={popupClose}>
+            <input type="url" name="link" id="popup_avatar-link" placeholder="Image Link" className="popup__field"
+              required />
+            <span className="popup__error" id="popup_avatar-link-error"></span>
+          </PopupWithForm>
+
+          <PopupWithForm name="edit-profile" title="Edit Profile" isOpen={isEditProfilePopupOpen} onClose={popupClose}>
+            <input type="text" name="name" id="popup_name" placeholder="Name (eg. Jacques Cousteau)"
+              className="popup__field" minLength="2" maxLength="40" required />
+            <span className="popup__error" id="popup_name-error"></span>
+
+            <input type="text" name="title" id="popup_title" placeholder="Title (eg. Explorer)" className="popup__field"
+              minLength="2" maxLength="200" required />
+            <span className="popup__error" id="popup_title-error"></span>
+          </PopupWithForm>
+
+          <PopupWithForm name="new-item" title="New Place" isOpen={isAddPlacePopupOpen} onClose={popupClose}>
+            <input type="text" name="name" id="popup_image-title" placeholder="Title" className="popup__field" required
+              minLength="2" maxLength="30" />
+            <span className="popup__error" id="popup_image-title-error"></span>
+
+            <input type="url" name="link" id="popup_image-link" placeholder="Image Link" className="popup__field"
+              required />
+            <span className="popup__error" id="popup_image-link-error"></span>
+          </PopupWithForm>
+
+          <PopupWithForm name="confirm-delete" title="Are you sure?" onClose={popupClose}/>
+
+          <ImagePopup />
 
 
-          </Main>
           <Footer />
 
         </div>
