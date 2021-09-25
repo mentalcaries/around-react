@@ -7,33 +7,33 @@ import Footer from "./Footer";
 
 function App() {
 
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false)
-  const [isEditProfilePopupOpen, setIspProfilePopupOpen] = React.useState(false)
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false)
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+  const [isEditProfilePopupOpen, setIspProfilePopupOpen] = React.useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState(false);
   // const [popupClose, setPopupClose] = React.useState(false);
 
   function handleEditAvatarClick() {
-    setIsEditAvatarPopupOpen(true)
+    setIsEditAvatarPopupOpen(true);
   }
 
   function handleEditProfileClick() {
-    setIspProfilePopupOpen(true)
+    setIspProfilePopupOpen(true);
   }
 
   function handleAddPlaceClick() {
-    setIsAddPlacePopupOpen(true)
+    setIsAddPlacePopupOpen(true);
   }
 
   function handleCardClick() {
-    const cardPopup = document.querySelector(".popup_type_picture")
-    cardPopup.classList.add("popup_opened")
+    setSelectedCard(true)
   }
 
-  function closeAllPopups(){
-    console.log("click")
+  function closeAllPopups() {
     setIsEditAvatarPopupOpen(false)
     setIspProfilePopupOpen(false)
     setIsAddPlacePopupOpen(false)
+    setSelectedCard(false)
   }
 
   return (
@@ -46,7 +46,9 @@ function App() {
             onAddPlaceClick={handleAddPlaceClick}
             onEditAvatarClick={handleEditAvatarClick}
             onCardClick={handleCardClick}
-             />
+          />
+          
+
 
           <PopupWithForm name="edit-image" title="Change Profile Picture"
             isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
@@ -55,8 +57,8 @@ function App() {
             <span className="popup__error" id="popup_avatar-link-error"></span>
           </PopupWithForm>
 
-          <PopupWithForm name="edit-profile" title="Edit Profile" isOpen={isEditProfilePopupOpen} 
-          onClose={closeAllPopups}>
+          <PopupWithForm name="edit-profile" title="Edit Profile" isOpen={isEditProfilePopupOpen}
+            onClose={closeAllPopups}>
             <input type="text" name="name" id="popup_name" placeholder="Name (eg. Jacques Cousteau)"
               className="popup__field" minLength="2" maxLength="40" required />
             <span className="popup__error" id="popup_name-error"></span>
@@ -78,7 +80,7 @@ function App() {
 
           <PopupWithForm name="confirm-delete" title="Are you sure?" onClose={closeAllPopups} />
 
-          <ImagePopup />
+          <ImagePopup card={selectedCard} />
 
 
           <Footer />
