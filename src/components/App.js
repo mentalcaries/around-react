@@ -10,7 +10,7 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false)
   const [isEditProfilePopupOpen, setIspProfilePopupOpen] = React.useState(false)
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false)
-  const [popupClose, setPopupClose] = React.useState(false);
+  // const [popupClose, setPopupClose] = React.useState(false);
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true)
@@ -31,9 +31,9 @@ function App() {
 
   function closeAllPopups(){
     console.log("click")
-    setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen)
-    // setIspProfilePopupOpen(false)
-    // setIsAddPlacePopupOpen(false)
+    setIsEditAvatarPopupOpen(false)
+    setIspProfilePopupOpen(false)
+    setIsAddPlacePopupOpen(false)
   }
 
   return (
@@ -46,16 +46,17 @@ function App() {
             onAddPlaceClick={handleAddPlaceClick}
             onEditAvatarClick={handleEditAvatarClick}
             onCardClick={handleCardClick}
-            onCloseClick={closeAllPopups} />
+             />
 
           <PopupWithForm name="edit-image" title="Change Profile Picture"
-            isOpen={isEditAvatarPopupOpen} onClose={popupClose}>
+            isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
             <input type="url" name="link" id="popup_avatar-link" placeholder="Image Link" className="popup__field"
               required />
             <span className="popup__error" id="popup_avatar-link-error"></span>
           </PopupWithForm>
 
-          <PopupWithForm name="edit-profile" title="Edit Profile" isOpen={isEditProfilePopupOpen} onClose={popupClose}>
+          <PopupWithForm name="edit-profile" title="Edit Profile" isOpen={isEditProfilePopupOpen} 
+          onClose={closeAllPopups}>
             <input type="text" name="name" id="popup_name" placeholder="Name (eg. Jacques Cousteau)"
               className="popup__field" minLength="2" maxLength="40" required />
             <span className="popup__error" id="popup_name-error"></span>
@@ -65,7 +66,7 @@ function App() {
             <span className="popup__error" id="popup_title-error"></span>
           </PopupWithForm>
 
-          <PopupWithForm name="new-item" title="New Place" isOpen={isAddPlacePopupOpen} onClose={popupClose}>
+          <PopupWithForm name="new-item" title="New Place" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} >
             <input type="text" name="name" id="popup_image-title" placeholder="Title" className="popup__field" required
               minLength="2" maxLength="30" />
             <span className="popup__error" id="popup_image-title-error"></span>
@@ -75,7 +76,7 @@ function App() {
             <span className="popup__error" id="popup_image-link-error"></span>
           </PopupWithForm>
 
-          <PopupWithForm name="confirm-delete" title="Are you sure?" onClose={popupClose}/>
+          <PopupWithForm name="confirm-delete" title="Are you sure?" onClose={closeAllPopups} />
 
           <ImagePopup />
 
