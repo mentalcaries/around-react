@@ -14,7 +14,7 @@ class Api {
     getCards() {
       return fetch(`${this._baseUrl}/cards`, {
         headers: this._headers})
-        .then((res) => this._checkRes(res))
+        .then(this._checkRes)
   
     }
   

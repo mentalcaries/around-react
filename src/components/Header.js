@@ -1,11 +1,10 @@
 import headerLogo from '../images/header-logo.svg';
 
-
-function Header(){
-  return(
+function Header() {
+  return (
     <header className="header">
-    <img src={headerLogo} alt="Around the US text" className="header__logo" />
-  </header>
+      <img src={headerLogo} alt="Around the US text" className="header__logo" />
+    </header>
 
   )
 }

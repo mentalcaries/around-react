@@ -2,33 +2,27 @@ import React from "react";
 import { api } from "../utils/api";
 import Card from "./Card";
 
-function Main({onEditProfileClick, onAddPlaceClick, onEditAvatarClick, onCardClick}) {
-const [userName, setUserName] = React.useState('');
-const [userDescription, setUserDescription] = React.useState('');
-const [userAvatar, setUserAvatar] = React.useState('');
-const [cards, setCards] = React.useState([])
+function Main({ onEditProfileClick, onAddPlaceClick, onEditAvatarClick, onCardClick }) {
+  const [userName, setUserName] = React.useState('');
+  const [userDescription, setUserDescription] = React.useState('');
+  const [userAvatar, setUserAvatar] = React.useState('');
+  const [cards, setCards] = React.useState([])
 
-React.useEffect(()=>{
-  api.getProfileInfo()
-  .then((res)=>{
-    setUserName(res.name);
-    setUserDescription(res.about);
-  })
-  },[userName])
-
-  React.useEffect(()=>{
+  React.useEffect(() => {
     api.getProfileInfo()
-    .then((res)=>{
-      setUserAvatar(res.avatar);
-    })
-  }, [userAvatar])
+      .then((res) => {
+        setUserName(res.name);
+        setUserDescription(res.about);
+        setUserAvatar(res.avatar);
+      })
+  }, [])
 
-  React.useEffect(()=>{
+  React.useEffect(() => {
     api.getCards()
-    .then((res)=>{
-      setCards(res);
-    })
-  }, [userAvatar])
+      .then((res) => {
+        setCards(res);
+      })
+  }, [])
 
   return (
     <main className="content">
@@ -52,10 +46,10 @@ React.useEffect(()=>{
 
       <section className="elements">
 
-      {cards.map((card)=> <Card card={card} key={card._id} onCardClick={onCardClick}/>)}
-      
+        {cards.map((card) => <Card card={card} key={card._id} onCardClick={onCardClick} />)}
+
       </section>
-    
+
     </main>
 
   )

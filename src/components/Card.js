@@ -2,6 +2,7 @@ function Card(props) {
    function handleClick() {
     props.onCardClick(props.card)
   }
+  
   return (
     <article className="card">
       <button className="card__delete-button" type="button" aria-label="Delete card"></button>
