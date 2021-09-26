@@ -29,6 +29,8 @@ function App() {
     setSelectedCard(true)
   }
 
+  
+
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false)
     setIspProfilePopupOpen(false)
@@ -47,8 +49,6 @@ function App() {
             onEditAvatarClick={handleEditAvatarClick}
             onCardClick={handleCardClick}
           />
-          
-
 
           <PopupWithForm name="edit-image" title="Change Profile Picture"
             isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
@@ -80,7 +80,7 @@ function App() {
 
           <PopupWithForm name="confirm-delete" title="Are you sure?" onClose={closeAllPopups} />
 
-          <ImagePopup card={selectedCard} />
+          <ImagePopup isOpen={selectedCard} onClose={closeAllPopups} />
 
 
           <Footer />

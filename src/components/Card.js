@@ -1,7 +1,7 @@
 function Card(props){
-    function handleClick(){
-        props.onCardClick(props.card)
-    }
+  function handleClick(){
+    props.onCardClick(props.card)
+}
 
     return(
     props.cards.map(card=>(

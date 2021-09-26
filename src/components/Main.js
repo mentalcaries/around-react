@@ -52,9 +52,9 @@ React.useEffect(()=>{
 
 
       <section className="elements">
-      <Card cards={cards} />
+      <Card cards={cards} onCardClick={props.onCardClick}/>
       </section>
-
+    
     </main>
 
   )
