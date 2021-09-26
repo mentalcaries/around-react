@@ -19,9 +19,7 @@ function Main({ onEditProfileClick, onAddPlaceClick, onEditAvatarClick, onCardCl
 
   React.useEffect(() => {
     api.getCards()
-      .then((res) => {
-        setCards(res);
-      })
+      .then(setCards)
   }, [])
 
   return (
