@@ -6,11 +6,12 @@ import ImagePopup from "./ImagePopup";
 import Footer from "./Footer";
 import { api } from "../utils/api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import EditProfilePopup from "./EditProfilePopup";
 
 function App() {
 
 
-  const [currentUser, setCurrentUser] = React.useState();
+  const [currentUser, setCurrentUser] = React.useState('');
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [isEditProfilePopupOpen, setIspProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
@@ -45,6 +46,11 @@ function App() {
     setSelectedCard(false)
   }
 
+  function handleUpdateUser(){
+    api.setProfileInfo()
+    .then ((res)=>setCurrentUser(res))
+  }
+
   return (
     <div className="App">
       <div className="root">
@@ -63,15 +69,9 @@ function App() {
                 required />
               <span className="popup__error" id="popup_avatar-link-error" />
             </PopupWithForm>
-            <PopupWithForm name="edit-profile" title="Edit Profile" isOpen={isEditProfilePopupOpen}
-              onClose={closeAllPopups}>
-              <input type="text" name="name" id="popup_name" placeholder="Name (eg. Jacques Cousteau)"
-                className="popup__field" minLength="2" maxLength="40" required />
-              <span className="popup__error" id="popup_name-error" />
-              <input type="text" name="title" id="popup_title" placeholder="Title (eg. Explorer)" className="popup__field"
-                minLength="2" maxLength="200" required />
-              <span className="popup__error" id="popup_title-error" />
-            </PopupWithForm>
+
+            <EditProfilePopup  isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser}/>
+           
             <PopupWithForm name="new-item" title="New Place" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} >
               <input type="text" name="name" id="popup_image-title" placeholder="Title" className="popup__field" required
                 minLength="2" maxLength="30" />
@@ -80,8 +80,11 @@ function App() {
                 required />
               <span className="popup__error" id="popup_image-link-error"></span>
             </PopupWithForm>
+            
             <PopupWithForm name="confirm-delete" title="Are you sure?" onClose={closeAllPopups} />
+            
             <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+            
             <Footer />
           </div>
         </CurrentUserContext.Provider>
