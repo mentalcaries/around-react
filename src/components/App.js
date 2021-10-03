@@ -9,6 +9,7 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function App() {
 
+
   const [currentUser, setCurrentUser] = React.useState();
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [isEditProfilePopupOpen, setIspProfilePopupOpen] = React.useState(false);
@@ -18,8 +19,8 @@ function App() {
 
   React.useEffect(() => {
     api.getProfileInfo()
-      .then((res) => setCurrentUser(res))
-  })
+      .then((res)=>{setCurrentUser(res)})
+  },[])
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
