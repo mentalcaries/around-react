@@ -1,21 +1,12 @@
 import React from "react";
 import { api } from "../utils/api";
 import Card from "./Card";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function Main({ onEditProfileClick, onAddPlaceClick, onEditAvatarClick, onCardClick }) {
-  const [userName, setUserName] = React.useState('');
-  const [userDescription, setUserDescription] = React.useState('');
-  const [userAvatar, setUserAvatar] = React.useState('');
-  const [cards, setCards] = React.useState([])
+  const [cards, setCards] = React.useState([]);
+  const currentUser = React.useContext(CurrentUserContext);
 
-  React.useEffect(() => {
-    api.getProfileInfo()
-      .then((res) => {
-        setUserName(res.name);
-        setUserDescription(res.about);
-        setUserAvatar(res.avatar);
-      })
-  }, [])
 
   React.useEffect(() => {
     api.getCards()
@@ -26,16 +17,16 @@ function Main({ onEditProfileClick, onAddPlaceClick, onEditAvatarClick, onCardCl
     <main className="content">
       <section className="profile">
         <div className="profile__avatar">
-          <img src={userAvatar} alt="User profile pic" className="profile__image" />
+          <img src={currentUser.avatar} alt="User profile pic" className="profile__image" />
           <button className="profile__edit-image" type="button" aria-label="Edit User Photo"
             onClick={onEditAvatarClick}></button>
         </div>
         <div className="profile__info">
           <div className="profile__title">
-            <h1 className="profile__name">{userName}</h1>
+            <h1 className="profile__name">{currentUser.name}</h1>
             <button className="profile__edit-btn hover-animate" type="button" aria-label="Edit profile" onClick={onEditProfileClick}></button>
           </div>
-          <p className="profile__subtitle">{userDescription}</p>
+          <p className="profile__subtitle">{currentUser.about}</p>
         </div>
         <button className="profile__add-button hover-animate" aria-label="Add" type="button"
           onClick={onAddPlaceClick}></button>
