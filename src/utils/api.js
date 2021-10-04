@@ -32,7 +32,7 @@ class Api {
         headers: this._headers,
         body: JSON.stringify({
           name: item.name,
-          about: item.title
+          about: item.about
         })
       })
       .then((res) => this._checkRes(res))
@@ -84,7 +84,7 @@ class Api {
       return fetch(`${this._baseUrl}/users/me/avatar`, {
         method: "PATCH",
         headers: this._headers,
-        body: JSON.stringify({avatar: avatar})
+        body: JSON.stringify(avatar)
       })
         .then((res) => this._checkRes(res))
   

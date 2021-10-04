@@ -7,6 +7,7 @@ import Footer from "./Footer";
 import { api } from "../utils/api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
 
 function App() {
 
@@ -20,8 +21,8 @@ function App() {
 
   React.useEffect(() => {
     api.getProfileInfo()
-      .then((res)=>{setCurrentUser(res)})
-  },[])
+      .then((res) => { setCurrentUser(res) })
+  }, [])
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -46,9 +47,37 @@ function App() {
     setSelectedCard(false)
   }
 
-  function handleUpdateUser(){
-    api.setProfileInfo()
-    .then ((res)=>setCurrentUser(res))
+  function handleUpdateUser(userInfo) {
+    api.setProfileInfo(userInfo)
+      .then((res) => setCurrentUser(res));
+    closeAllPopups();
+  }
+
+  function handleUpdateAvatar(link) {
+    api.updateProfilePicture(link)
+      .then((res) => setCurrentUser(res));
+    closeAllPopups();
+  }
+
+  const [cards, setCards] = React.useState([]);
+
+
+
+  React.useEffect(() => {
+    api.getCards()
+      .then(setCards)
+  }, [])
+
+  function handleCardLike(card){
+    const isLiked = card.likes.some(i => i._id === currentUser._id)
+    api.changeCardStatus(card._id, isLiked).then((newCard) => {
+      setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+  });
+  }
+
+  function handleDeleteCard(card){
+    api.deleteCard(card._id)
+    .then (setCards((cards)=>cards.filter(c=> c._id !== card._id)))
   }
 
   return (
@@ -62,16 +91,16 @@ function App() {
               onAddPlaceClick={handleAddPlaceClick}
               onEditAvatarClick={handleEditAvatarClick}
               onCardClick={handleCardClick}
+              cards={cards}
+              onCardLike={handleCardLike}
+              onCardDelete={handleDeleteCard}
             />
-            <PopupWithForm name="edit-image" title="Change Profile Picture"
-              isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
-              <input type="url" name="link" id="popup_avatar-link" placeholder="Image Link" className="popup__field"
-                required />
-              <span className="popup__error" id="popup_avatar-link-error" />
-            </PopupWithForm>
 
-            <EditProfilePopup  isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser}/>
-           
+
+            <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
+
+            <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
+
             <PopupWithForm name="new-item" title="New Place" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} >
               <input type="text" name="name" id="popup_image-title" placeholder="Title" className="popup__field" required
                 minLength="2" maxLength="30" />
@@ -80,11 +109,11 @@ function App() {
                 required />
               <span className="popup__error" id="popup_image-link-error"></span>
             </PopupWithForm>
-            
+
             <PopupWithForm name="confirm-delete" title="Are you sure?" onClose={closeAllPopups} />
-            
+
             <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-            
+
             <Footer />
           </div>
         </CurrentUserContext.Provider>

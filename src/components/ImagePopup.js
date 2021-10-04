@@ -4,7 +4,7 @@ function ImagePopup({onClose, card}) {
       <div className="popup__overlay">
         <div className="popup__container popup__container_open-image">
           <button className="popup__close-btn hover-animate" type="button" onClick={onClose} />
-          <figure className="popup__figure"><img className="popup__image" src={card?.link} alt={`Picture of ${card?.name}`} />
+          <figure className="popup__figure"><img className="popup__image" src={card?.link} alt={` ${card?.name}`} />
             <figcaption className="popup__caption">{card?.name}</figcaption>
           </figure>
         </div>
