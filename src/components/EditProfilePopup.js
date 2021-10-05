@@ -2,7 +2,7 @@ import React from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import PopupWithForm from "./PopupWithForm"
 
-function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
+function EditProfilePopup({ isOpen, onClose, onUpdateUser, onOutsideClick }) {
   const currentUser = React.useContext(CurrentUserContext)
 
   const [name, setName] = React.useState();
@@ -30,13 +30,39 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   }
 
   return (
-    <PopupWithForm name="edit-profile" title="Edit Profile" isOpen={isOpen}
-      onClose={onClose} onSubmit={handleSubmit}>
-      <input type="text" name="name" id="popup_name" value={name || ''} onChange={handleNameChange} placeholder="Name (eg. Jacques Cousteau)"
-        className="popup__field" minLength="2" maxLength="40" required />
+    <PopupWithForm
+      name="edit-profile"
+      title="Edit Profile"
+      isOpen={isOpen}
+      onClose={onClose}
+      onSubmit={handleSubmit}
+      onOutsideClick={onOutsideClick}
+      >
+
+      <input
+        type="text"
+        name="name"
+        id="popup_name"
+        value={name || ''}
+        onChange={handleNameChange}
+        placeholder="Name (eg. Jacques Cousteau)"
+        className="popup__field"
+        minLength="2" maxLength="40"
+        required/>
+
       <span className="popup__error" id="popup_name-error" />
-      <input type="text" name="title" id="popup_title" value={description || ''} onChange={handleDescriptionChange} placeholder="Title (eg. Explorer)" className="popup__field"
-        minLength="2" maxLength="200" required />
+
+      <input
+        type="text"
+        name="title"
+        id="popup_title"
+        value={description || ''}
+        onChange={handleDescriptionChange}
+        placeholder="Title (eg. Explorer)"
+        className="popup__field"
+        minLength="2" maxLength="200"
+        required />
+
       <span className="popup__error" id="popup_title-error" />
     </PopupWithForm>
   )

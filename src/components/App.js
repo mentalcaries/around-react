@@ -8,6 +8,7 @@ import { api } from "../utils/api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
+import AddPlacePopup from "./AddPlacePopup";
 
 function App() {
 
@@ -17,6 +18,8 @@ function App() {
   const [isEditProfilePopupOpen, setIspProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState()
+  const [cards, setCards] = React.useState([]);
+  
 
 
   React.useEffect(() => {
@@ -47,6 +50,13 @@ function App() {
     setSelectedCard(false)
   }
 
+  function handleOutsideClick(evt){
+      if (evt.target.className === "popup__overlay"){
+        closeAllPopups()
+      }
+  
+  }
+
   function handleUpdateUser(userInfo) {
     api.setProfileInfo(userInfo)
       .then((res) => setCurrentUser(res));
@@ -59,8 +69,12 @@ function App() {
     closeAllPopups();
   }
 
-  const [cards, setCards] = React.useState([]);
 
+  function handleAddPlaceSubmit(newCard) {
+    api.addNewCard(newCard)
+      .then(setCards([newCard, ...cards]));
+    closeAllPopups();
+  }
 
 
   React.useEffect(() => {
@@ -68,16 +82,27 @@ function App() {
       .then(setCards)
   }, [])
 
-  function handleCardLike(card){
+  function handleCardLike(card) {
     const isLiked = card.likes.some(i => i._id === currentUser._id)
     api.changeCardStatus(card._id, isLiked).then((newCard) => {
       setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-  });
+    });
   }
 
-  function handleDeleteCard(card){
+  function handleDeleteCard(card) {
     api.deleteCard(card._id)
-    .then (setCards((cards)=>cards.filter(c=> c._id !== card._id)))
+      .then(setCards((cards) => cards.filter(c => c._id !== card._id)))
+  }
+
+
+  document.addEventListener('keydown', handleEscape)
+
+  function handleEscape(evt){
+    if (evt.key==="Escape"){
+      console.log("Esc")
+      closeAllPopups();
+      document.removeEventListener('keydown', handleEscape)
+    }
   }
 
   return (
@@ -97,22 +122,15 @@ function App() {
             />
 
 
-            <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
+            <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} onOutsideClick={handleOutsideClick} />
 
-            <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
+            <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} onOutsideClick={handleOutsideClick} />
 
-            <PopupWithForm name="new-item" title="New Place" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} >
-              <input type="text" name="name" id="popup_image-title" placeholder="Title" className="popup__field" required
-                minLength="2" maxLength="30" />
-              <span className="popup__error" id="popup_image-title-error" />
-              <input type="url" name="link" id="popup_image-link" placeholder="Image Link" className="popup__field"
-                required />
-              <span className="popup__error" id="popup_image-link-error"></span>
-            </PopupWithForm>
+            <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlaceSubmit={handleAddPlaceSubmit} onOutsideClick={handleOutsideClick} />
 
-            <PopupWithForm name="confirm-delete" title="Are you sure?" onClose={closeAllPopups} />
+            <PopupWithForm name="confirm-delete" title="Are you sure?" onClose={closeAllPopups}  />
 
-            <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+            <ImagePopup card={selectedCard} onClose={closeAllPopups} onOutsideClick={handleOutsideClick}/>
 
             <Footer />
           </div>

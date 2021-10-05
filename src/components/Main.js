@@ -1,5 +1,4 @@
 import React from "react";
-import { api } from "../utils/api";
 import Card from "./Card";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
@@ -27,8 +26,7 @@ function Main({ onEditProfileClick, onAddPlaceClick, onEditAvatarClick, onCardCl
 
 
       <section className="elements">
-
-        {cards.map((card) => <Card card={card} key={card._id} onCardClick={onCardClick} onCardLike={onCardLike} onCardDelete={onCardDelete} />)}
+           {cards.map((card) => <Card card={card} key={card._id} onCardClick={onCardClick} onCardLike={onCardLike} onCardDelete={onCardDelete} />)}
 
       </section>
 
