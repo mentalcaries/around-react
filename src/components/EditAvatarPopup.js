@@ -4,12 +4,15 @@ import PopupWithForm from "./PopupWithForm"
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, onOutsideClick }) {
 
   const avatarRef = React.useRef();
+  const [isInputValid, setIsInputValid] = React.useState(false)
 
-  // const [errorMessage, showErrorMessage] = React.useState('')
-  
-  // React.useEffect(()=>{
-  //   showErrorMessage(avatarRef.current.validationMessage)
-  // }, [errorMessage])
+
+  function handleValidityChange(evt){
+    setIsInputValid(evt.target.validity.valid)
+    console.log(evt.target.validationMessage)
+
+  }
+
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -31,11 +34,11 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, onOutsideClick }) {
         name="link"
         ref={avatarRef}
         id="popup_avatar-link"
-        placeholder="Image Link" className="popup__field"
-        required
-      />
+        placeholder="Image Link" className={`popup__field ${isInputValid? '': 'popup__field_type_error'}`}
+        required onChange={handleValidityChange}
+       />
 
-      <span className="popup__error popup__error_visible" id="popup_avatar-link-error"></span>
+      <span className={`popup__error ${isInputValid} '' : popup__error_visible`} id="popup_avatar-link-error">{avatarRef.current?.validationMessage}</span>
     </PopupWithForm>
   )
 }

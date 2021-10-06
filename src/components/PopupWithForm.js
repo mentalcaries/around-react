@@ -4,11 +4,12 @@ function PopupWithForm({ name, isOpen, title, onSubmit, onClose, onOutsideClick,
   const formRef = React.createRef()
   const [isValid, setIsValid] = React.useState(false)
   
+
   React.useEffect(()=>{
-    setIsValid(formRef.current.checkValidity())
+     setIsValid(formRef.current.checkValidity())
   }, [formRef])
   
-
+  
   return (
     <div className={`popup popup_type_${name} ${isOpen ? 'popup_opened' : ''} 
     `}>
