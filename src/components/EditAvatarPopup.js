@@ -7,7 +7,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, onOutsideClick }) {
   const [isInputValid, setIsInputValid] = React.useState(false)
 
 
-  function handleValidityChange(evt){
+  function handleValidityChange(evt) {
     setIsInputValid(evt.target.validity.valid)
     console.log(evt.target.validationMessage)
   }
@@ -33,10 +33,10 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, onOutsideClick }) {
         name="link"
         ref={avatarRef}
         id="popup_avatar-link"
-        placeholder="Image Link" className={`popup__field ${isInputValid? '': 'popup__field_type_error'}`}
-        required 
+        placeholder="Image Link" className={`popup__field ${isInputValid ? '' : 'popup__field_type_error'}`}
+        required
         onChange={handleValidityChange}
-       />
+      />
 
       <span className={`popup__error ${isInputValid} '' : popup__error_visible`} id="popup_avatar-link-error">{avatarRef.current?.validationMessage}</span>
     </PopupWithForm>

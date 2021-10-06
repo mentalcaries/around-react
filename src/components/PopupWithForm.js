@@ -1,15 +1,15 @@
 import React from "react";
 
-function PopupWithForm({ name, isOpen, title, onSubmit, onClose, onOutsideClick, children}) {
+function PopupWithForm({ name, isOpen, title, onSubmit, onClose, onOutsideClick, children }) {
   const formRef = React.createRef()
   const [isValid, setIsValid] = React.useState(false)
-  
 
-  React.useEffect(()=>{
-     setIsValid(formRef.current.checkValidity())
+
+  React.useEffect(() => {
+    setIsValid(formRef.current.checkValidity())
   }, [formRef])
-  
-  
+
+
   return (
     <div className={`popup popup_type_${name} ${isOpen ? 'popup_opened' : ''} 
     `}>
@@ -19,7 +19,7 @@ function PopupWithForm({ name, isOpen, title, onSubmit, onClose, onOutsideClick,
           <h2 className="popup__title">{title}</h2>
           <form className="popup__form" name={name} noValidate onSubmit={onSubmit} ref={formRef}>
             {children}
-            <button className={`popup__save-btn ${isValid ? '': 'popup__save-btn_disabled'}`} type="submit" name="Save" default="Save" disabled={!isValid}>Save</button>
+            <button className={`popup__save-btn ${isValid ? '' : 'popup__save-btn_disabled'}`} type="submit" name="Save" default="Save" disabled={!isValid}>Save</button>
           </form>
         </div>
       </div>

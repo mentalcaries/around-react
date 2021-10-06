@@ -19,7 +19,7 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState()
   const [cards, setCards] = React.useState([]);
-  
+
 
 
   React.useEffect(() => {
@@ -50,11 +50,11 @@ function App() {
     setSelectedCard(false)
   }
 
-  function handleOutsideClick(evt){
-      if (evt.target.className === "popup__overlay"){
-        closeAllPopups()
-      }
-  
+  function handleOutsideClick(evt) {
+    if (evt.target.className === "popup__overlay") {
+      closeAllPopups()
+    }
+
   }
 
   function handleUpdateUser(userInfo) {
@@ -94,12 +94,12 @@ function App() {
       .then(setCards((cards) => cards.filter(c => c._id !== card._id)))
   }
 
-  if(isEditAvatarPopupOpen || isAddPlacePopupOpen || isEditProfilePopupOpen){
+  if (isEditAvatarPopupOpen || isAddPlacePopupOpen || isEditProfilePopupOpen) {
     document.addEventListener('keydown', handleEscape)
   }
 
-  function handleEscape(evt){
-    if (evt.key==="Escape"){
+  function handleEscape(evt) {
+    if (evt.key === "Escape") {
       closeAllPopups();
       document.removeEventListener('keydown', handleEscape)
     }
@@ -128,9 +128,9 @@ function App() {
 
             <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlaceSubmit={handleAddPlaceSubmit} onOutsideClick={handleOutsideClick} />
 
-            <PopupWithForm name="confirm-delete" title="Are you sure?" onClose={closeAllPopups}  />
+            <PopupWithForm name="confirm-delete" title="Are you sure?" onClose={closeAllPopups} />
 
-            <ImagePopup card={selectedCard} onClose={closeAllPopups} onOutsideClick={handleOutsideClick}/>
+            <ImagePopup card={selectedCard} onClose={closeAllPopups} onOutsideClick={handleOutsideClick} />
 
             <Footer />
           </div>

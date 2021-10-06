@@ -48,8 +48,8 @@ function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit, onOutsideClick }) {
         className={`popup__field ${isTitleValid ? '' : 'popup__field_type_error'}`}
         required
         minLength="2" maxLength="30"
-        onChange={handleTitleChange} 
-        ref={titleRef}/>
+        onChange={handleTitleChange}
+        ref={titleRef} />
 
       <span className={`popup__error ${isTitleValid ? '' : 'popup__error_visible'}`}
         id="popup_image-title-error">
@@ -62,12 +62,12 @@ function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit, onOutsideClick }) {
         id="popup_image-link"
         placeholder="Image Link"
         className={`popup__field ${isLinkValid ? '' : 'popup__field_type_error'}`}
-        required onChange={handleLinkChange} 
-        ref={linkRef}/>
+        required onChange={handleLinkChange}
+        ref={linkRef} />
 
       <span className={`popup__error ${isLinkValid ? '' : 'popup__error_visible'}`}
         id="popup_image-link-error">
-          {linkRef.current?.validationMessage}
+        {linkRef.current?.validationMessage}
       </span>
     </PopupWithForm>
 
