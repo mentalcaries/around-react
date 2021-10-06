@@ -94,12 +94,12 @@ function App() {
       .then(setCards((cards) => cards.filter(c => c._id !== card._id)))
   }
 
-
-  document.addEventListener('keydown', handleEscape)
+  if(isEditAvatarPopupOpen || isAddPlacePopupOpen || isEditProfilePopupOpen){
+    document.addEventListener('keydown', handleEscape)
+  }
 
   function handleEscape(evt){
     if (evt.key==="Escape"){
-      console.log("Esc")
       closeAllPopups();
       document.removeEventListener('keydown', handleEscape)
     }
