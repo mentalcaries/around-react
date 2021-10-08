@@ -9,7 +9,6 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, onOutsideClick }) {
 
   function handleValidityChange(evt) {
     setIsInputValid(evt.target.validity.valid)
-    console.log(evt.target.validationMessage)
   }
 
 
