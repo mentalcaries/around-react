@@ -1,32 +1,31 @@
-import React from "react";
-import { CurrentUserContext } from "../contexts/CurrentUserContext";
-import PopupWithForm from "./PopupWithForm"
+import React from 'react';
+import {CurrentUserContext} from '../contexts/CurrentUserContext';
+import PopupWithForm from './PopupWithForm';
 
-function EditProfilePopup({ isOpen, onClose, onUpdateUser, onOutsideClick }) {
-  const currentUser = React.useContext(CurrentUserContext)
+function EditProfilePopup({isOpen, onClose, onUpdateUser, onOutsideClick}) {
+  const currentUser = React.useContext(CurrentUserContext);
 
   const [name, setName] = React.useState('');
   const [description, setDescription] = React.useState('');
 
   const nameRef = React.useRef();
   const descriptionRef = React.useRef();
-  const [isNameValid, setIsNameValid] = React.useState(true)
-  const [isDescriptionValid, setIsDescriptionValid] = React.useState(true)
-
+  const [isNameValid, setIsNameValid] = React.useState(true);
+  const [isDescriptionValid, setIsDescriptionValid] = React.useState(true);
 
   React.useEffect(() => {
-    setName(currentUser.name)
-    setDescription(currentUser.about)
-  }, [currentUser])
+    setName(currentUser.name);
+    setDescription(currentUser.about);
+  }, [currentUser]);
 
   function handleNameChange(evt) {
-    setName(evt.target.value)
-    setIsNameValid(evt.target.validity.valid)
+    setName(evt.target.value);
+    setIsNameValid(evt.target.validity.valid);
   }
 
   function handleDescriptionChange(evt) {
-    setDescription(evt.target.value)
-    setIsDescriptionValid(evt.target.validity.valid)
+    setDescription(evt.target.value);
+    setIsDescriptionValid(evt.target.validity.valid);
   }
 
   function handleSubmit(evt) {
@@ -46,7 +45,6 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, onOutsideClick }) {
       onSubmit={handleSubmit}
       onOutsideClick={onOutsideClick}
     >
-
       <input
         type="text"
         name="name"
@@ -54,14 +52,22 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, onOutsideClick }) {
         value={name || ''}
         onChange={handleNameChange}
         placeholder="Name (eg. Jacques Cousteau)"
-        className={`popup__field ${isNameValid ? '' : 'popup__field_type_error'}`}
-        minLength="2" maxLength="40"
-        ref={nameRef} autoComplete="off"
-        required />
+        className={`popup__field ${
+          isNameValid ? '' : 'popup__field_type_error'
+        }`}
+        minLength="2"
+        maxLength="40"
+        ref={nameRef}
+        autoComplete="off"
+        required
+      />
 
-      <span className={`popup__error ${isNameValid ? '' : 'popup__error_visible'}`} id="popup_name-error">
-        {nameRef.current?.validationMessage
-        }</span>
+      <span
+        className={`popup__error ${isNameValid ? '' : 'popup__error_visible'}`}
+        id="popup_name-error"
+      >
+        {nameRef.current?.validationMessage}
+      </span>
 
       <input
         type="text"
@@ -70,15 +76,25 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, onOutsideClick }) {
         value={description || ''}
         onChange={handleDescriptionChange}
         placeholder="Title (eg. Explorer)"
-        className={`popup__field ${isDescriptionValid ? '' : 'popup__field_type_error'}`}
-        minLength="2" maxLength="200"
-        ref={descriptionRef} autoComplete="off"
-        required />
+        className={`popup__field ${
+          isDescriptionValid ? '' : 'popup__field_type_error'
+        }`}
+        minLength="2"
+        maxLength="200"
+        ref={descriptionRef}
+        autoComplete="off"
+        required
+      />
 
-      <span className={`popup__error ${isDescriptionValid ? '' : 'popup__error_visible'}`} id="popup_title-error">
+      <span
+        className={`popup__error ${
+          isDescriptionValid ? '' : 'popup__error_visible'
+        }`}
+        id="popup_title-error"
+      >
         {descriptionRef.current?.validationMessage}
       </span>
     </PopupWithForm>
-  )
+  );
 }
-export default EditProfilePopup
+export default EditProfilePopup;

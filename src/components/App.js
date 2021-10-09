@@ -48,7 +48,6 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setSelectedCard(false);
     document.removeEventListener('keydown', handleEscape);
-
   }
 
   function handleOutsideClick(evt) {
@@ -93,7 +92,10 @@ function App() {
   }
 
   const anyPopupOpen =
-    isEditAvatarPopupOpen || isAddPlacePopupOpen || isEditProfilePopupOpen || selectedCard;
+    isEditAvatarPopupOpen ||
+    isAddPlacePopupOpen ||
+    isEditProfilePopupOpen ||
+    selectedCard;
 
   React.useEffect(() => {
     anyPopupOpen
